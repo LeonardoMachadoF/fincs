@@ -17,27 +17,33 @@ public class RegisterExpenseUseCase:IRegisterExpenseUseCase
 
     private void Validate(RequestRegisterExpenseJson request)
     {
-        var titleIsEmpty = string.IsNullOrWhiteSpace(request.Title);
-        if (titleIsEmpty)
+        var errors = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(request.Title))
         {
-            throw new ArgumentException("Title is required");
+            errors.Add("Title is required.");
         }
 
         if (request.Amount <= 0)
         {
-            throw new ArgumentException("Amount is required and must be greater than 0");
-        }
-        var result = DateTime.Compare(request.Date, DateTime.UtcNow);
-        if (result > 0)
-        {
-            throw new ArgumentException("Date cannot be greater than current date");
+            errors.Add("Amount is required and must be greater than 0.");
         }
 
-        var paymentTypeIsValid = Enum.IsDefined(typeof(PaymentType), request.PaymentType);
-        if (paymentTypeIsValid == false)
+        if (DateTime.Compare(request.Date, DateTime.UtcNow) > 0)
         {
-            throw new ArgumentException("Payment type is invalid");
+            errors.Add("Date cannot be greater than the current date.");
+        }
+
+        if (!Enum.IsDefined(typeof(PaymentType), request.PaymentType))
+        {
+            errors.Add("Payment type is invalid.");
+        }
+
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException(string.Join("|", errors));
         }
     }
+
 }
 

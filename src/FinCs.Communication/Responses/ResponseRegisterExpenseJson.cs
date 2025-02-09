@@ -1,6 +1,6 @@
 namespace FinCs.Communication.Responses;
 
-public class ResponseRegisterExpenseJson
+public record ResponseRegisterExpenseJson
 {
     public string Title { get; set; } = string.Empty;
 }

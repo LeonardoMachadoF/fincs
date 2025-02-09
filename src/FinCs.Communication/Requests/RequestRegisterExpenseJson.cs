@@ -2,7 +2,7 @@ using FinCs.Communication.Enums;
 
 namespace FinCs.Communication.Requests;
 
-public class RequestRegisterExpenseJson
+public record RequestRegisterExpenseJson
 { 
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
