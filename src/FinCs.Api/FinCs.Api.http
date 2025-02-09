@@ -1,6 +1,13 @@
-@FinCs.Api_HostAddress = http://localhost:5196
+@FinCs = localhost:5196
 
-GET {{FinCs.Api_HostAddress}}/weatherforecast/
+POST {{FinCs}}/api/expenses
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "amount": 100.50,
+  "category": "Food",
+  "description": "Lunch with colleagues",
+  "date": "2024-02-09T12:30:00",
+  "title": "titulo"
+}
