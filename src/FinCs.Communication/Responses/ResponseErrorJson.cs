@@ -1,6 +1,16 @@
 namespace FinCs.Communication.Responses;
 
-public class ResponseErrorJson(string errorMessage)
+public class ResponseErrorJson
 {
-    public string[] Errors { get; set; } = errorMessage.Split("|");
+    public ResponseErrorJson(string message)
+    {
+        Errors = [message];
+    }
+
+    public ResponseErrorJson(List<string> errorMessages)
+    {
+        Errors = errorMessages;
+    }
+
+    public List<string> Errors { get; set; }
 }

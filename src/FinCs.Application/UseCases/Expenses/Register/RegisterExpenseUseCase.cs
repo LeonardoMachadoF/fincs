@@ -1,10 +1,10 @@
-using FinCs.Communication.Enums;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
+using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase:IRegisterExpenseUseCase
+public class RegisterExpenseUseCase : IRegisterExpenseUseCase
 {
     public ResponseRegisterExpenseJson Execute(RequestRegisterExpenseJson request)
     {
@@ -17,33 +17,17 @@ public class RegisterExpenseUseCase:IRegisterExpenseUseCase
 
     private void Validate(RequestRegisterExpenseJson request)
     {
-        var errors = new List<string>();
+        var validator = new RegisterExpenseValidator();
+        var result = validator.Validate(request);
 
-        if (string.IsNullOrWhiteSpace(request.Title))
-        {
-            errors.Add("Title is required.");
-        }
 
-        if (request.Amount <= 0)
+        if (result.IsValid == false)
         {
-            errors.Add("Amount is required and must be greater than 0.");
-        }
+            var errorMessages = result.Errors.Select(
+                error => error.ErrorMessage
+            ).ToList();
 
-        if (DateTime.Compare(request.Date, DateTime.UtcNow) > 0)
-        {
-            errors.Add("Date cannot be greater than the current date.");
-        }
-
-        if (!Enum.IsDefined(typeof(PaymentType), request.PaymentType))
-        {
-            errors.Add("Payment type is invalid.");
-        }
-
-        if (errors.Count > 0)
-        {
-            throw new ArgumentException(string.Join("|", errors));
+            throw new ErrorOnValidationException(errorMessages);
         }
     }
-
 }
-
