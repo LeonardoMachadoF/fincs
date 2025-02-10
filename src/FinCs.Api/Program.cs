@@ -1,5 +1,6 @@
 using FinCs.Api.Extensions;
 using FinCs.Api.Filters;
+using FinCs.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
             "v1.0.0")
     );
 }
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 

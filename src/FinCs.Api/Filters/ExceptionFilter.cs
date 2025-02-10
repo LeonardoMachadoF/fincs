@@ -1,4 +1,5 @@
 using FinCs.Communication.Responses;
+using FinCs.Exception;
 using FinCs.Exception.ExceptionsBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -33,7 +34,7 @@ public class ExceptionFilter : IExceptionFilter
 
     private void ThrowUnknownException(ExceptionContext context)
     {
-        var errorResponse = new ResponseErrorJson("An unknown error occured");
+        var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(errorResponse);
     }
