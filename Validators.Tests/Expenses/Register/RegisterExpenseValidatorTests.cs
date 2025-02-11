@@ -1,6 +1,7 @@
 using CommonTestUtilities.Requests;
 using FinCs.Application.UseCases.Expenses.Register;
 using FinCs.Exception;
+using Shouldly;
 
 namespace Validators.Tests.Expenses.Register;
 
@@ -14,7 +15,7 @@ public class RegisterExpenseValidatorTests
 
         var result = validator.Validate(request);
 
-        Assert.True(result.IsValid);
+        result.IsValid.ShouldBeTrue();
     }
 
     [Theory]
@@ -37,7 +38,8 @@ public class RegisterExpenseValidatorTests
         var result = validator.Validate(request);
         var expectedMessage = errorMessages[invalidProperty];
 
-        Assert.False(result.IsValid);
-        Assert.Contains(result.Errors, e => e.ErrorMessage == expectedMessage);
+        result.IsValid.ShouldBeFalse();
+        result.Errors.Count.ShouldBe(1);
+        result.Errors[0].ErrorMessage.ShouldBe(expectedMessage);
     }
 }
