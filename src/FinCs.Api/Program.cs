@@ -1,6 +1,8 @@
 using FinCs.Api.Extensions;
 using FinCs.Api.Filters;
 using FinCs.Api.Middlewares;
+using FinCs.Application;
+using FinCs.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddMvc(options =>
     options.Filters.Add<ExceptionFilter>()
 );
 
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
