@@ -2,11 +2,14 @@ using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
 using FinCs.Domain.Entities;
 using FinCs.Domain.Enums;
+using FinCs.Domain.Repositories;
+using FinCs.Domain.Repositories.Expenses;
 using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork)
+    : IRegisterExpenseUseCase
 {
     public ResponseRegisterExpenseJson Execute(RequestRegisterExpenseJson request)
     {
@@ -19,6 +22,10 @@ public class RegisterExpenseUseCase : IRegisterExpenseUseCase
             Date = request.Date,
             PaymentType = (PaymentType)request.PaymentType
         };
+
+        expensesRepository.Add(entity);
+
+        unitOfWork.Commit();
 
         return new ResponseRegisterExpenseJson
         {
