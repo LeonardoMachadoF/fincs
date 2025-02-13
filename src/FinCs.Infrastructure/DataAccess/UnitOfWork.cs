@@ -4,8 +4,8 @@ namespace FinCs.Infrastructure.DataAccess;
 
 internal class UnitOfWork(FinCsDbContext dbContext) : IUnitOfWork
 {
-    public void Commit()
+    public async Task Commit()
     {
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 }

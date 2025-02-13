@@ -11,7 +11,7 @@ namespace FinCs.Application.UseCases.Expenses.Register;
 public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork)
     : IRegisterExpenseUseCase
 {
-    public ResponseRegisterExpenseJson Execute(RequestRegisterExpenseJson request)
+    public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
     {
         Validate(request);
         var entity = new Expense
@@ -23,9 +23,9 @@ public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUni
             PaymentType = (PaymentType)request.PaymentType
         };
 
-        expensesRepository.Add(entity);
+        await expensesRepository.Add(entity);
 
-        unitOfWork.Commit();
+        await unitOfWork.Commit();
 
         return new ResponseRegisterExpenseJson
         {
