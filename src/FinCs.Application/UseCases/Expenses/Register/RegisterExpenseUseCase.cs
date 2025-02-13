@@ -1,36 +1,26 @@
+using AutoMapper;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
 using FinCs.Domain.Entities;
-using FinCs.Domain.Enums;
 using FinCs.Domain.Repositories;
 using FinCs.Domain.Repositories.Expenses;
 using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork)
+public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork, IMapper mapper)
     : IRegisterExpenseUseCase
 {
     public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
     {
         Validate(request);
-        var entity = new Expense
-        {
-            Title = request.Title,
-            Description = request.Description,
-            Amount = request.Amount,
-            Date = request.Date,
-            PaymentType = (PaymentType)request.PaymentType
-        };
+        var entity = mapper.Map<Expense>(request);
 
         await expensesRepository.Add(entity);
 
         await unitOfWork.Commit();
 
-        return new ResponseRegisterExpenseJson
-        {
-            Title = request.Title
-        };
+        return mapper.Map<ResponseRegisterExpenseJson>(entity);
     }
 
     private void Validate(RequestRegisterExpenseJson request)
