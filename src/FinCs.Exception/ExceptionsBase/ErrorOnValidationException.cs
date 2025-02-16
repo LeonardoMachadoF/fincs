@@ -1,11 +1,14 @@
+using System.Net;
+
 namespace FinCs.Exception.ExceptionsBase;
 
-public class ErrorOnValidationException : FinCsException
+public class ErrorOnValidationException(List<string> errorMessages) : FinCsException
 {
-    public ErrorOnValidationException(List<string> errorMessages)
-    {
-        Errors = errorMessages;
-    }
+    private List<string> Errors { get; } = errorMessages;
+    public override int StatusCode => (int)HttpStatusCode.BadRequest;
 
-    public List<string> Errors { get; set; }
+    public override List<string> GetErrors()
+    {
+        return Errors;
+    }
 }

@@ -6,7 +6,8 @@ using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.GetById;
 
-public class GetExpenseByIdUseCase(IExpensesRepository expensesRepository, IMapper mapper) : IGetExpenseByIdUseCase
+public class GetExpenseByIdUseCase(IExpensesReadOnlyRepository expensesRepository, IMapper mapper)
+    : IGetExpenseByIdUseCase
 {
     public async Task<ResponseExpenseJson> Execute(long id)
     {

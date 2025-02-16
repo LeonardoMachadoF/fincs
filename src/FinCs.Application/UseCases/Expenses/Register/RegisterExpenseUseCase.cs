@@ -8,7 +8,10 @@ using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork, IMapper mapper)
+public class RegisterExpenseUseCase(
+    IExpensesWriteOnlyRepository expensesRepository,
+    IUnitOfWork unitOfWork,
+    IMapper mapper)
     : IRegisterExpenseUseCase
 {
     public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)

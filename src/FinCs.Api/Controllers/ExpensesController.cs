@@ -1,6 +1,8 @@
+using FinCs.Application.UseCases.Expenses.Delete;
 using FinCs.Application.UseCases.Expenses.GetAll;
 using FinCs.Application.UseCases.Expenses.GetById;
 using FinCs.Application.UseCases.Expenses.Register;
+using FinCs.Application.UseCases.Expenses.Update;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -44,5 +46,27 @@ public class ExpensesController : ControllerBase
 
 
         return Ok(response);
+    }
+
+    [HttpDelete]
+    [Route("{id:long}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete([FromServices] IDeleteExpenseUseCase useCase, [FromRoute] long id)
+    {
+        await useCase.Execute(id);
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id:long}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Update([FromServices] IUpdateExpenseUseCase useCase, [FromRoute] long id,
+        [FromBody] RequestExpenseJson request)
+    {
+        await useCase.Execute(id, request);
+        return NoContent();
     }
 }

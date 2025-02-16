@@ -1,7 +1,9 @@
 using FinCs.Application.AutoMapper;
+using FinCs.Application.UseCases.Expenses.Delete;
 using FinCs.Application.UseCases.Expenses.GetAll;
 using FinCs.Application.UseCases.Expenses.GetById;
 using FinCs.Application.UseCases.Expenses.Register;
+using FinCs.Application.UseCases.Expenses.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinCs.Application;
@@ -24,5 +26,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetAllExpenseUseCase, GetAllExpenseUseCase>();
         services.AddScoped<IRegisterExpenseUseCase, RegisterExpenseUseCase>();
         services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
+        services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
+        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
     }
 }
