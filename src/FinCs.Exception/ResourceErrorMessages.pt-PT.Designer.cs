@@ -69,6 +69,15 @@ namespace FinCs.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Despesa não encontrada.
+        /// </summary>
+        internal static string EXPENSE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("EXPENSE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A data não pode ser no futuro.
         /// </summary>
         internal static string INVALID_EXPENSE_DATE {

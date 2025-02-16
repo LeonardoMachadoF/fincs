@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36121A32-0A5F-4ED4-A8B5-787B00C58EE0}"
+	ProjectSection(SolutionItems) = preProject
+		src\compose.yml = src\compose.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EF249B96-26B7-49AC-8EB8-73F747DCDC55}"
 EndProject

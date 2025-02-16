@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\apeju\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\FinCs\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5698D7B2-0671-4815-918A-ED21CA5249A4}|src\\FinCs.Api\\FinCs.Api.csproj|c:\\users\\apeju\\onedrive\\\u00E1rea de trabalho\\projetos\\fincs\\src\\fincs.api\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5698D7B2-0671-4815-918A-ED21CA5249A4}|src\\FinCs.Api\\FinCs.Api.csproj|solutionrelative:src\\fincs.api\\controllers\\expensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5698D7B2-0671-4815-918A-ED21CA5249A4}|src\\FinCs.Api\\FinCs.Api.csproj|c:\\users\\apeju\\onedrive\\\u00E1rea de trabalho\\projetos\\fincs\\src\\fincs.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5698D7B2-0671-4815-918A-ED21CA5249A4}|src\\FinCs.Api\\FinCs.Api.csproj|solutionrelative:src\\fincs.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +18,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ExpensesController.cs",
+              "DocumentMoniker": "C:\\Users\\apeju\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\FinCs\\src\\FinCs.Api\\Controllers\\ExpensesController.cs",
+              "RelativeDocumentMoniker": "src\\FinCs.Api\\Controllers\\ExpensesController.cs",
+              "ToolTip": "C:\\Users\\apeju\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\FinCs\\src\\FinCs.Api\\Controllers\\ExpensesController.cs*",
+              "RelativeToolTip": "src\\FinCs.Api\\Controllers\\ExpensesController.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T16:47:41.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\apeju\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\FinCs\\src\\FinCs.Api\\Program.cs",
+              "RelativeDocumentMoniker": "src\\FinCs.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\apeju\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\FinCs\\src\\FinCs.Api\\Program.cs*",
+              "RelativeToolTip": "src\\FinCs.Api\\Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T16:38:18.543Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
