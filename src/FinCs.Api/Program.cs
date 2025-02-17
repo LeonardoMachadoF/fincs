@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
-builder.Services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
+builder.Services.Configure<RouteOptions>(
+    options => { options.LowercaseUrls = true; }
+);
 builder.Services.AddOpenApi();
 builder.Services.AddDependencyInjectionServices();
 
