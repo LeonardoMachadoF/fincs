@@ -10,17 +10,16 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is FinCsException)
-            HandleProjectException(context);
+        if (context.Exception is FinCsException finCsException)
+            HandleProjectException(context, finCsException);
         else
             ThrowUnknownException(context);
     }
 
-    private void HandleProjectException(ExceptionContext context)
+    private void HandleProjectException(ExceptionContext context, FinCsException exception)
     {
-        var finCsException = (FinCsException)context.Exception;
-        var errorResponse = new ResponseErrorJson(finCsException.GetErrors());
-        context.HttpContext.Response.StatusCode = finCsException.StatusCode;
+        var errorResponse = new ResponseErrorJson(exception.GetErrors());
+        context.HttpContext.Response.StatusCode = exception.StatusCode;
         context.Result = new ObjectResult(errorResponse);
     }
 
