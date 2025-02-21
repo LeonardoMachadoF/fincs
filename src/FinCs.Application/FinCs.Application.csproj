@@ -30,4 +30,8 @@
         <PackageReference Include="PDFsharp-MigraDoc" Version="6.1.1"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="UseCases\Expenses\Reports\Pdf\Logo\"/>
+    </ItemGroup>
+
 </Project>

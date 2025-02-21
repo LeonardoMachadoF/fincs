@@ -123,6 +123,15 @@ namespace FinCs.Domain.Reports {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Despesas para.
+        /// </summary>
+        internal static string EXPENSES_FOR {
+            get {
+                return ResourceManager.GetString("EXPENSES_FOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tipo de Pagamento.
         /// </summary>
         internal static string PAYMENT_TYPE {
@@ -137,6 +146,15 @@ namespace FinCs.Domain.Reports {
         internal static string TITLE {
             get {
                 return ResourceManager.GetString("TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total gasto em {0}.
+        /// </summary>
+        internal static string TOTAL_SPENT_IN {
+            get {
+                return ResourceManager.GetString("TOTAL_SPENT_IN", resourceCulture);
             }
         }
     }

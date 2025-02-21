@@ -1,6 +1,6 @@
 using ClosedXML.Excel;
 using FinCs.Application.UseCases.Report.Excel;
-using FinCs.Domain.Enums;
+using FinCs.Domain.Extensions;
 using FinCs.Domain.Reports;
 using FinCs.Domain.Repositories.Expenses;
 
@@ -29,7 +29,7 @@ public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repo
         {
             worksheet.Cell($"A{row}").Value = expense.Title;
             worksheet.Cell($"B{row}").Value = expense.Date;
-            worksheet.Cell($"C{row}").Value = ConvertPaymentTypeToString(expense.PaymentType);
+            worksheet.Cell($"C{row}").Value = expense.PaymentType.PaymentTypeToString();
 
             worksheet.Cell($"D{row}").Value = expense.Amount;
             worksheet.Cell($"D{row}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL}#,##0.00";
@@ -46,18 +46,6 @@ public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repo
         workBook.SaveAs(file);
 
         return file.ToArray();
-    }
-
-    private string ConvertPaymentTypeToString(PaymentType paymentType)
-    {
-        return paymentType switch
-        {
-            PaymentType.Cash => ResourceReportGenerationMessages.CASH,
-            PaymentType.CreditCard => ResourceReportGenerationMessages.CREDIT_CARD,
-            PaymentType.DebitCard => ResourceReportGenerationMessages.DEBIT_CARD,
-            PaymentType.ElectronicTransfer => ResourceReportGenerationMessages.ELECTRONIC_TRANSFER,
-            _ => string.Empty
-        };
     }
 
     private void InsertHeader(IXLWorksheet worksheet)
