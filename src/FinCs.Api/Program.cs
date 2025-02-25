@@ -3,6 +3,7 @@ using FinCs.Api.Filters;
 using FinCs.Api.Middlewares;
 using FinCs.Application;
 using FinCs.Infrastructure;
+using FinCs.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,4 +42,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await MigrateDatabaseAsync();
 app.Run();
+
+async Task MigrateDatabaseAsync()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
+}
