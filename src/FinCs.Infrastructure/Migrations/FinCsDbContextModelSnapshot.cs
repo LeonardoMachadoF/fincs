@@ -85,7 +85,7 @@ namespace FinCs.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FinCs.Domain.Entities.Expense", b =>

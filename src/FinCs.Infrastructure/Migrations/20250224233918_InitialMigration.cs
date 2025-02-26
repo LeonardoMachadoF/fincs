@@ -14,9 +14,9 @@ namespace FinCs.Infrastructure.Migrations
         {
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
-
+            
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "users",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -33,10 +33,10 @@ namespace FinCs.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_users", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
+            
             migrationBuilder.CreateTable(
                 name: "expenses",
                 columns: table => new
@@ -56,9 +56,9 @@ namespace FinCs.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_expenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_expenses_User_UserId",
+                        name: "FK_expenses_users_UserId",  // Correção no nome da Foreign Key
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "users",  // Nome corrigido para "users"
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -77,7 +77,7 @@ namespace FinCs.Infrastructure.Migrations
                 name: "expenses");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "users"); 
         }
     }
 }

@@ -1,5 +1,6 @@
 using FinCs.Domain.Repositories;
 using FinCs.Domain.Repositories.Expenses;
+using FinCs.Domain.Repositories.User;
 using FinCs.Domain.Security.Cryptography;
 using FinCs.Infrastructure.DataAccess;
 using FinCs.Infrastructure.DataAccess.Repositories;
@@ -24,6 +25,10 @@ public static class DependencyInjectionExtension
         services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpensesWriteOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepository>();
+
+        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
