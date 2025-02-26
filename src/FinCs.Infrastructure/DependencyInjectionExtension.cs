@@ -1,5 +1,6 @@
 using FinCs.Domain.Repositories;
 using FinCs.Domain.Repositories.Expenses;
+using FinCs.Domain.Security.Cryptography;
 using FinCs.Infrastructure.DataAccess;
 using FinCs.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ public static class DependencyInjectionExtension
     {
         AddRepositories(services);
         AddDbContext(services, configuration);
+
+        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
     }
 
     private static void AddRepositories(IServiceCollection services)
