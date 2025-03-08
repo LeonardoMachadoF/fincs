@@ -7,6 +7,7 @@ using FinCs.Application.UseCases.Expenses.Reports.Excel;
 using FinCs.Application.UseCases.Expenses.Reports.Pdf;
 using FinCs.Application.UseCases.Expenses.Update;
 using FinCs.Application.UseCases.Report.Excel;
+using FinCs.Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinCs.Application;
@@ -28,6 +29,7 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IGetAllExpenseUseCase, GetAllExpenseUseCase>();
         services.AddScoped<IRegisterExpenseUseCase, RegisterExpenseUseCase>();
+        services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
         services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
         services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();

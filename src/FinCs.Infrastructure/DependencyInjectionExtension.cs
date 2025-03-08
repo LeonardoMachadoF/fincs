@@ -2,8 +2,10 @@ using FinCs.Domain.Repositories;
 using FinCs.Domain.Repositories.Expenses;
 using FinCs.Domain.Repositories.User;
 using FinCs.Domain.Security.Cryptography;
+using FinCs.Domain.Security.Tokens;
 using FinCs.Infrastructure.DataAccess;
 using FinCs.Infrastructure.DataAccess.Repositories;
+using FinCs.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +18,17 @@ public static class DependencyInjectionExtension
     {
         AddRepositories(services);
         AddDbContext(services, configuration);
+        AddToken(services, configuration);
 
         services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+    }
+
+    private static void AddToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTime = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeInMinutes");
+        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAcessTokenGenerator>(opt => new JwtTokenGenerator(expirationTime, signingKey!));
     }
 
     private static void AddRepositories(IServiceCollection services)
