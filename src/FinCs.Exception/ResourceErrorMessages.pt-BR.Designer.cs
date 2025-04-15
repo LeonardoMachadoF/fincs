@@ -69,6 +69,15 @@ namespace FinCs.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email ou senha inválidos.
+        /// </summary>
+        internal static string EMAIL_OR_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Despesa nao encontrada.
         /// </summary>
         internal static string EXPENSE_NOT_FOUND {

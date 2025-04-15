@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FinCs.Infrastructure.Security.Tokens;
 
-public class JwtTokenGenerator : IAcessTokenGenerator
+public class JwtTokenGenerator : IAccessTokenGenerator
 {
     private readonly uint _expirationTimeInMinutes;
     private readonly string _signingKey;

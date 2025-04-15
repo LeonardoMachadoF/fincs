@@ -11,6 +11,11 @@ internal class UserRepository(FinCsDbContext dbContext) : IUserReadOnlyRepositor
         return await dbContext.Users.AnyAsync(user => user.Email == email);
     }
 
+    public async Task<User?> GetActiveUserWithEmail(string email)
+    {
+        return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
+    }
+
     public async Task Add(User user)
     {
         await dbContext.Users.AddAsync(user);
