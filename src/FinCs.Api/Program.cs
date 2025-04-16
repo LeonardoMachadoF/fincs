@@ -1,9 +1,12 @@
+using System.Text;
 using FinCs.Api.Extensions;
 using FinCs.Api.Filters;
 using FinCs.Api.Middlewares;
 using FinCs.Application;
 using FinCs.Infrastructure;
 using FinCs.Infrastructure.Migrations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,27 @@ builder.Services.AddMvc(options =>
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplication();
 
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = new TimeSpan(0, 0, 0),
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey =
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder
+                        .Configuration
+                        .GetValue<string>("Settings:Jwt:SigningKey")!)
+            )
+    };
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -38,6 +62,7 @@ app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

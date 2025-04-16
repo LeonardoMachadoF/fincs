@@ -5,12 +5,14 @@ using FinCs.Application.UseCases.Expenses.Register;
 using FinCs.Application.UseCases.Expenses.Update;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinCs.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
