@@ -24,6 +24,8 @@
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Expenses.Register.RegisterExpenseValidatorTests.ValidateRegisterExpense_ShouldReturnTrue_WhenRegisterExpenseIsValid&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Expenses.Register.RegisterExpenseValidatorTests.ValidateRegisterExpense_ShouldValidateCorrectly&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Expenses.Register.RegisterExpenseValidatorTests.ValidateRegisterExpense_ShouldInvalidateGeneratedData&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Users.Register.RegisterUserValidatorTest.Error_Password_Invalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Users.PasswordValidatorTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FFinCs_002EDomain_002FReports_002FPaymentType_002FResourceReportGenerationPaymentTypeMessages/@EntryIndexedValue">False</s:Boolean>
