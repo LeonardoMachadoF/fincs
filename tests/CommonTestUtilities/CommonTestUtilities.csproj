@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\FinCs.Application\FinCs.Application.csproj"/>
         <ProjectReference Include="..\..\src\FinCs.Communication\FinCs.Communication.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="14.0.0"/>
         <PackageReference Include="Bogus" Version="35.6.1"/>
+        <PackageReference Include="Moq" Version="4.20.72"/>
     </ItemGroup>
 
 </Project>
