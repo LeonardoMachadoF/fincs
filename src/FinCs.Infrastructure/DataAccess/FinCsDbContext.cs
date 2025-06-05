@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinCs.Infrastructure.DataAccess;
 
-internal class FinCsDbContext(DbContextOptions<FinCsDbContext> options) : DbContext(options)
+public class FinCsDbContext(DbContextOptions<FinCsDbContext> options) : DbContext(options)
 {
     public DbSet<Expense> Expenses { get; set; }
     public DbSet<User> Users { get; set; }

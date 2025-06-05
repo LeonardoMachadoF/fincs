@@ -5,6 +5,7 @@ using FinCs.Domain.Security.Cryptography;
 using FinCs.Domain.Security.Tokens;
 using FinCs.Infrastructure.DataAccess;
 using FinCs.Infrastructure.DataAccess.Repositories;
+using FinCs.Infrastructure.Extensions;
 using FinCs.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,11 +17,12 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+
         AddRepositories(services);
-        AddDbContext(services, configuration);
         AddToken(services, configuration);
 
-        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+        if (configuration.IsTestEnvironment() == false) AddDbContext(services, configuration);
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)
@@ -46,7 +48,7 @@ public static class DependencyInjectionExtension
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Connection");
-        var serverVersion = new MySqlServerVersion(new Version(9, 2, 0));
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
         services.AddDbContext<FinCsDbContext>(config =>
             config.UseMySql(connectionString, serverVersion)
         );

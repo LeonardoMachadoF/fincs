@@ -4,6 +4,7 @@ using FinCs.Api.Filters;
 using FinCs.Api.Middlewares;
 using FinCs.Application;
 using FinCs.Infrastructure;
+using FinCs.Infrastructure.Extensions;
 using FinCs.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -67,7 +68,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDatabaseAsync();
+if (builder.Configuration.IsTestEnvironment() == false) await MigrateDatabaseAsync();
+
 app.Run();
 
 async Task MigrateDatabaseAsync()
