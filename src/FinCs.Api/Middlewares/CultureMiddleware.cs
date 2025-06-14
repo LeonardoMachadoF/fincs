@@ -15,10 +15,15 @@ public class CultureMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var requestCulture = context.Request.Headers["Accept-Language"].ToString().Split(',').FirstOrDefault()?.Trim();
+        var acceptLang = context.Request.Headers["Accept-Language"]
+            .ToString()
+            .Split(',')
+            .Select(l => l.Split(';').First().Trim())
+            .FirstOrDefault();
 
-        var cultureInfo = requestCulture != null && _supportedLanguages.Contains(requestCulture)
-            ? new CultureInfo(requestCulture)
+        var cultureInfo = acceptLang != null &&
+                          _supportedLanguages.Contains(acceptLang, StringComparer.OrdinalIgnoreCase)
+            ? new CultureInfo(acceptLang)
             : new CultureInfo("en");
 
         CultureInfo.CurrentCulture = cultureInfo;
