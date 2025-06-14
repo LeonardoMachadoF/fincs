@@ -38,6 +38,7 @@
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Users.Login.LoginUserValidatorTest.Should_Return_EmailEmpty_When_Email_Is_Null_Or_Whitespace&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Users.Login.LoginUserValidatorTest.Should_Return_EmailInvalid_When_Email_Format_Is_Wrong&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Users.Login.LoginUserValidatorTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Users.Register.RegisterUserTest.Success&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FFinCs_002EDomain_002FReports_002FPaymentType_002FResourceReportGenerationPaymentTypeMessages/@EntryIndexedValue">False</s:Boolean>
