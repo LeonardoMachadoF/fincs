@@ -6,6 +6,7 @@ using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FinCs.Exception;
 using Shouldly;
+using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register;
 
@@ -36,12 +37,13 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         response.RootElement.GetProperty("token").GetString().ShouldNotBeNullOrEmpty();
     }
 
-    [Fact]
-    public async Task Error_Empty_Name()
+    [Theory]
+    [ClassData(typeof(CultureInlineDataTest))]
+    public async Task Error_Empty_Name(string region)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("pt-BR"));
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(region));
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
 
         result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -53,7 +55,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
         var errorList = errors.Select(error => error.GetString()).ToList();
 
-        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo("pt-BR"));
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(region));
 
         errorList.Count.ShouldBe(1);
         errorList.ShouldContain(expectedMessage);

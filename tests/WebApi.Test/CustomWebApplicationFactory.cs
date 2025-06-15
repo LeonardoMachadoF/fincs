@@ -1,3 +1,6 @@
+using CommonTestUtilities.Entities;
+using FinCs.Domain.Entities;
+using FinCs.Domain.Security.Cryptography;
 using FinCs.Infrastructure.DataAccess;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -8,6 +11,24 @@ namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private string _password;
+    private User _user;
+
+    public string GetEmail()
+    {
+        return _user.Email;
+    }
+
+    public string GetName()
+    {
+        return _user.Name;
+    }
+
+    public string GetPassword()
+    {
+        return _password;
+    }
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -22,7 +43,29 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                             config.UseInternalServiceProvider(provider);
                         }
                     );
+
+                    var scope = services
+                        .BuildServiceProvider()
+                        .CreateScope();
+
+                    var dbContext = scope
+                        .ServiceProvider
+                        .GetRequiredService<FinCsDbContext>();
+                    var passwordEncripter = scope
+                        .ServiceProvider
+                        .GetRequiredService<IPasswordEncripter>();
+
+                    StartDatabase(dbContext, passwordEncripter);
                 }
             );
+    }
+
+    private void StartDatabase(FinCsDbContext dbContext, IPasswordEncripter encripter)
+    {
+        _user = UserBuilder.Build();
+        _password = _user.Password;
+        _user.Password = encripter.Encript(_user.Password);
+        dbContext.Users.Add(_user);
+        dbContext.SaveChanges();
     }
 }
