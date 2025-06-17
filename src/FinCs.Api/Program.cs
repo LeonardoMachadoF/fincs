@@ -2,7 +2,9 @@ using System.Text;
 using FinCs.Api.Extensions;
 using FinCs.Api.Filters;
 using FinCs.Api.Middlewares;
+using FinCs.Api.Token;
 using FinCs.Application;
+using FinCs.Domain.Security.Tokens;
 using FinCs.Infrastructure;
 using FinCs.Infrastructure.Extensions;
 using FinCs.Infrastructure.Migrations;
@@ -25,6 +27,9 @@ builder.Services.AddMvc(options =>
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication(config =>
 {

@@ -1,9 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using FinCs.Domain.Entities;
+using FinCs.Domain.Security.Tokens;
 using FinCs.Domain.Services.LoggedUser;
 using FinCs.Infrastructure.DataAccess;
-using FinCs.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinCs.Infrastructure.Services.LoggedUser;

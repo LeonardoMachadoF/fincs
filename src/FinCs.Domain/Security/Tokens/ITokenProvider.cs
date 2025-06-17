@@ -1,4 +1,4 @@
-namespace FinCs.Infrastructure.Security.Tokens;
+namespace FinCs.Domain.Security.Tokens;
 
 public interface ITokenProvider
 {
