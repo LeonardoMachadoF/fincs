@@ -38,9 +38,9 @@ internal class ExpensesRepository(FinCsDbContext dbContext)
             .ToListAsync();
     }
 
-    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(long id)
+    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user, long id)
     {
-        return await dbContext.Expenses.FirstOrDefaultAsync(x => x.Id == id);
+        return await dbContext.Expenses.FirstOrDefaultAsync(x => x.Id == id && x.Id == user.Id);
     }
 
     public void Update(Expense expense)
