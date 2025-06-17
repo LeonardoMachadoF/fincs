@@ -4,6 +4,7 @@ using FinCs.Communication.Responses;
 using FinCs.Domain.Entities;
 using FinCs.Domain.Repositories;
 using FinCs.Domain.Repositories.Expenses;
+using FinCs.Domain.Services.LoggedUser;
 using FinCs.Exception.ExceptionsBase;
 
 namespace FinCs.Application.UseCases.Expenses.Register;
@@ -11,19 +12,24 @@ namespace FinCs.Application.UseCases.Expenses.Register;
 public class RegisterExpenseUseCase(
     IExpensesWriteOnlyRepository expensesRepository,
     IUnitOfWork unitOfWork,
-    IMapper mapper)
+    IMapper mapper,
+    ILoggedUser loggedUser
+)
     : IRegisterExpenseUseCase
 {
     public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
     {
         Validate(request);
-        var entity = mapper.Map<Expense>(request);
 
-        await expensesRepository.Add(entity);
+        var acLoggedUser = await loggedUser.Get();
+        var expense = mapper.Map<Expense>(request);
+        expense.UserId = acLoggedUser.Id;
+
+        await expensesRepository.Add(expense);
 
         await unitOfWork.Commit();
 
-        return mapper.Map<ResponseRegisterExpenseJson>(entity);
+        return mapper.Map<ResponseRegisterExpenseJson>(expense);
     }
 
     private void Validate(RequestRegisterExpenseJson request)

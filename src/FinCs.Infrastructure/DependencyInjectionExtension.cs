@@ -3,10 +3,12 @@ using FinCs.Domain.Repositories.Expenses;
 using FinCs.Domain.Repositories.User;
 using FinCs.Domain.Security.Cryptography;
 using FinCs.Domain.Security.Tokens;
+using FinCs.Domain.Services.LoggedUser;
 using FinCs.Infrastructure.DataAccess;
 using FinCs.Infrastructure.DataAccess.Repositories;
 using FinCs.Infrastructure.Extensions;
 using FinCs.Infrastructure.Security.Tokens;
+using FinCs.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,7 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
 
         AddRepositories(services);
         AddToken(services, configuration);
