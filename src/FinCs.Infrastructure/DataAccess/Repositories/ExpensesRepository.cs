@@ -7,14 +7,14 @@ namespace FinCs.Infrastructure.DataAccess.Repositories;
 internal class ExpensesRepository(FinCsDbContext dbContext)
     : IExpensesReadOnlyRepository, IExpensesWriteOnlyRepository, IExpensesUpdateOnlyRepository
 {
-    public async Task<List<Expense>> GetAll()
+    public async Task<List<Expense>> GetAll(User user)
     {
-        return await dbContext.Expenses.AsNoTracking().ToListAsync();
+        return await dbContext.Expenses.AsNoTracking().Where(expense => expense.UserId == user.Id).ToListAsync();
     }
 
-    async Task<Expense?> IExpensesReadOnlyRepository.GetById(long id)
+    async Task<Expense?> IExpensesReadOnlyRepository.GetById(User user, long id)
     {
-        return await dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
     }
 
     public async Task<List<Expense>> GetByMonth(DateOnly date)
@@ -53,11 +53,10 @@ internal class ExpensesRepository(FinCsDbContext dbContext)
         await dbContext.Expenses.AddAsync(expense);
     }
 
-    public async Task<bool> Delete(long id)
+    public async Task Delete(long id)
     {
-        var result = await dbContext.Expenses.FirstOrDefaultAsync(x => x.Id == id);
-        if (result is null) return false;
+        var result = await dbContext.Expenses.FirstAsync(x => x.Id == id);
+
         dbContext.Expenses.Remove(result);
-        return true;
     }
 }
