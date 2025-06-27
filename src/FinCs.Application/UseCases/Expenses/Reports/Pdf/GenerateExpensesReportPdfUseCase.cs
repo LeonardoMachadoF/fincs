@@ -3,6 +3,7 @@ using FinCs.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using FinCs.Domain.Extensions;
 using FinCs.Domain.Reports;
 using FinCs.Domain.Repositories.Expenses;
+using FinCs.Domain.Services.LoggedUser;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -16,23 +17,26 @@ public class GenerateExpensesReportPdfUseCase
 {
     private const string CURRENCY_SYMBOL = "R$";
     private const int HEIGHT_ROW_EXPENSE = 25;
+    private readonly ILoggedUser _loggedUser;
     private readonly IExpensesReadOnlyRepository _repository;
 
-    public GenerateExpensesReportPdfUseCase(IExpensesReadOnlyRepository repository)
+    public GenerateExpensesReportPdfUseCase(IExpensesReadOnlyRepository repository, ILoggedUser loggedUser)
     {
+        _loggedUser = loggedUser;
         _repository = repository;
         GlobalFontSettings.FontResolver = new ExpensesReportFontResolver();
     }
 
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await _repository.GetByMonth(month);
+        var loggedUser = await _loggedUser.Get();
+        var expenses = await _repository.GetByMonth(loggedUser, month);
         if (expenses.Count == 0) return [];
 
-        var document = CreateDocument(month);
+        var document = CreateDocument(loggedUser.Name, month);
         var page = CreatePage(document);
 
-        CreateHeaderWithLogoAndName(page);
+        CreateHeaderWithLogoAndName(loggedUser.Name, page);
         var totalSpent = expenses.Sum(expense => expense.Amount);
         CreateTotalSpentSection(page, month, totalSpent);
 
@@ -93,20 +97,20 @@ public class GenerateExpensesReportPdfUseCase
 
     private void AddAmountForExpense(Cell cell, decimal amount)
     {
-        cell.AddParagraph($"-{amount} {CURRENCY_SYMBOL}");
+        cell.AddParagraph($"-{amount:f2} {CURRENCY_SYMBOL}");
         cell.Format.Font = new Font { Name = FontHelper.ROBOTO_REGULAR, Size = 14, Color = ColorsHelper.BLACK };
         cell.Shading.Color = ColorsHelper.WHITE;
         cell.VerticalAlignment = VerticalAlignment.Center;
     }
 
-    private Document CreateDocument(DateOnly month)
+    private Document CreateDocument(string author, DateOnly month)
     {
         var document = new Document
         {
             Info =
             {
                 Title = $"{ResourceReportGenerationMessages.EXPENSES_FOR} {month:Y}",
-                Author = "Apejust"
+                Author = author
             }
         };
 
@@ -144,7 +148,7 @@ public class GenerateExpensesReportPdfUseCase
         return file.ToArray();
     }
 
-    private void CreateHeaderWithLogoAndName(Section page)
+    private void CreateHeaderWithLogoAndName(string name, Section page)
     {
         var table = page.AddTable();
         table.AddColumn();
@@ -159,7 +163,7 @@ public class GenerateExpensesReportPdfUseCase
         row.Cells[0].AddParagraph("*LOGO*");
         row.Cells[0].VerticalAlignment = VerticalAlignment.Center;
 
-        row.Cells[1].AddParagraph("Hey, Pessoa");
+        row.Cells[1].AddParagraph($"Hey, {name}");
         row.Cells[1].Format.Font = new Font { Name = FontHelper.ROBOTO_BLACK, Size = 16 };
         row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
     }
@@ -175,7 +179,7 @@ public class GenerateExpensesReportPdfUseCase
         paragraph.AddLineBreak();
 
 
-        paragraph.AddFormattedText($"{totalSpent} {CURRENCY_SYMBOL}",
+        paragraph.AddFormattedText($"{totalSpent:f2} {CURRENCY_SYMBOL}",
             new Font { Name = FontHelper.ROBOTO_BLACK, Size = 50 });
     }
 

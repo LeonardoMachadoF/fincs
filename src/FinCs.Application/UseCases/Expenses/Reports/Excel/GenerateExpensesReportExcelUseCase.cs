@@ -3,21 +3,23 @@ using FinCs.Application.UseCases.Report.Excel;
 using FinCs.Domain.Extensions;
 using FinCs.Domain.Reports;
 using FinCs.Domain.Repositories.Expenses;
+using FinCs.Domain.Services.LoggedUser;
 
 namespace FinCs.Application.UseCases.Expenses.Reports.Excel;
 
-public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repository)
+public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repository, ILoggedUser loggedUser)
     : IGenerateExpensesReportExcelUseCase
 {
     private const string CURRENCY_SYMBOL = "R$";
 
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await repository.GetByMonth(month);
+        var acLoggedUser = await loggedUser.Get();
+        var expenses = await repository.GetByMonth(acLoggedUser, month);
         if (expenses.Count == 0) return [];
 
         using var workBook = new XLWorkbook();
-        workBook.Author = "testing author";
+        workBook.Author = acLoggedUser.Name;
         workBook.Style.Font.FontSize = 12;
         workBook.Style.Font.FontName = "Times New Roman";
 
