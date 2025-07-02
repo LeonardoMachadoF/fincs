@@ -46,6 +46,8 @@
     &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Users.Register.RegisterUserTest.Error_Empty_Name&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Users.Login.DoLogin.DoLoginTest.Success&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Users.Login.DoLogin.DoLoginTest.Error_Login_Invalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.Register.RegisterExpenseUseCaseTest.Success&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.Register.RegisterExpenseUseCaseTest.Error_Title_Empty&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FFinCs_002EDomain_002FReports_002FPaymentType_002FResourceReportGenerationPaymentTypeMessages/@EntryIndexedValue">False</s:Boolean>
