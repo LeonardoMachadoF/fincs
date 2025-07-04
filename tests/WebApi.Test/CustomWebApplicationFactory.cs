@@ -1,6 +1,7 @@
 using CommonTestUtilities.Entities;
 using FinCs.Domain.Entities;
 using FinCs.Domain.Security.Cryptography;
+using FinCs.Domain.Security.Tokens;
 using FinCs.Infrastructure.DataAccess;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -13,6 +14,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private string _password;
     private User _user;
+    private string _token;
 
     public string GetEmail()
     {
@@ -27,6 +29,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword()
     {
         return _password;
+    }  public string GetToken()
+    {
+        return _token;
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -55,7 +60,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                         .ServiceProvider
                         .GetRequiredService<IPasswordEncripter>();
 
+                    var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
+
                     StartDatabase(dbContext, passwordEncripter);
+
+                    _token = tokenGenerator.Generate(_user);
                 }
             );
     }
