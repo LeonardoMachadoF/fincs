@@ -1,7 +1,5 @@
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FinCs.Exception;
@@ -10,15 +8,13 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Expenses.Register;
 
-public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterExpenseTest : FinCsClassFixture
 {
     private const string METHOD = "api/expenses";
-    private readonly HttpClient _client;
     private readonly string _token;
 
-    public RegisterExpenseTest(CustomWebApplicationFactory factory)
+    public RegisterExpenseTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _client = factory.CreateClient();
         _token = factory.GetToken();
     }
 
@@ -26,8 +22,8 @@ public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
     public async Task Success()
     {
         var request = RequestRegisterExpenseJsonBuilder.BuildRequestRegisterExpenseJson();
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        var result = await _client.PostAsJsonAsync(METHOD, request);
+
+        var result = await DoPost(METHOD, request);
 
         result.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -45,10 +41,7 @@ public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterExpenseJsonBuilder.BuildRequestRegisterExpenseJson();
         request.Title = string.Empty;
 
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        _client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-
-        var result = await _client.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request, culture: culture);
 
         result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
