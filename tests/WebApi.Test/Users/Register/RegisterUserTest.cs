@@ -1,7 +1,5 @@
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FinCs.Exception;
@@ -10,14 +8,12 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest : FinCsClassFixture
 {
-    private readonly HttpClient _httpClient;
     private readonly string METHOD = "api/user";
 
-    public RegisterUserTest(CustomWebApplicationFactory webAppFactory)
+    public RegisterUserTest(CustomWebApplicationFactory webAppFactory) : base(webAppFactory)
     {
-        _httpClient = webAppFactory.CreateClient();
     }
 
     [Fact]
@@ -25,7 +21,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         result.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -43,8 +39,8 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(region));
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+
+        var result = await DoPost(METHOD, request, culture: region);
 
         result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
