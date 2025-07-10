@@ -13,8 +13,8 @@ namespace WebApi.Test;
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private string _password;
-    private User _user;
     private string _token;
+    private User _user;
 
     public string GetEmail()
     {
@@ -29,7 +29,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword()
     {
         return _password;
-    }  public string GetToken()
+    }
+
+    public string GetToken()
     {
         return _token;
     }
@@ -75,6 +77,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         _password = _user.Password;
         _user.Password = encripter.Encript(_user.Password);
         dbContext.Users.Add(_user);
+
+        var expense = ExpenseBuilder.Build(_user);
+        dbContext.Expenses.Add(expense);
+
         dbContext.SaveChanges();
     }
 }
