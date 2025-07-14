@@ -15,6 +15,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private string _password;
     private string _token;
     private User _user;
+    private Expense _expense;
 
     public string GetEmail()
     {
@@ -34,6 +35,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetToken()
     {
         return _token;
+    }public long GetExpenseId()
+    {
+        return _expense.Id;
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -78,8 +82,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         _user.Password = encripter.Encript(_user.Password);
         dbContext.Users.Add(_user);
 
-        var expense = ExpenseBuilder.Build(_user);
-        dbContext.Expenses.Add(expense);
+        _expense = ExpenseBuilder.Build(_user);
+        dbContext.Expenses.Add(_expense);
 
         dbContext.SaveChanges();
     }

@@ -25,7 +25,13 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ASystemException_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FLocal_003FJetBrains_003FShared_003FvAny_003FSourcesCache_003Fa11037b7be124c721cff68e33b83271664744ea58513f0f68809f13e29f382_003FSystemException_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ATrackingCollection_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FLocal_003FJetBrains_003FShared_003FvAny_003FSourcesCache_003F7fa41aef4121dae023fbc430b354e1f9f9a4f5eb8846ab812b154c5a7e01f11_003FTrackingCollection_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AWebApplicationFactory_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FLocal_003FJetBrains_003FShared_003FvAny_003FSourcesCache_003F255f916e5a2d424ef01b291afc761e049b367614440bf4b216824ec479064b_003FWebApplicationFactory_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=726002b0_002Dcb8e_002D4246_002D96f7_002D65ca4377cb71/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ValidateRegisterExpense_ShouldReturnTrue_WhenRegisterExpenseIsValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48880a09_002D224e_002D4d1c_002Dad75_002D1b5334c551df/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Success" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.GetById.GetExpenseByIdUseCaseTest.Success&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Expenses.GetById.GetExpenseByIdTest.Success&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=726002b0_002Dcb8e_002D4246_002D96f7_002D65ca4377cb71/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ValidateRegisterExpense_ShouldReturnTrue_WhenRegisterExpenseIsValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Expenses.Register.RegisterExpenseValidatorTests.ValidateRegisterExpense_ShouldReturnTrue_WhenRegisterExpenseIsValid&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::43BB39B4-202A-4384-BC4C-3026C3464DFF::net9.0::Validators.Tests.Expenses.Register.RegisterExpenseValidatorTests.ValidateRegisterExpense_ShouldValidateCorrectly&lt;/TestId&gt;&#xD;
@@ -48,6 +54,7 @@
     &lt;TestId&gt;xUnit::DF8EC808-D285-40C2-B412-2E4A96C95234::net9.0::WebApi.Test.Users.Login.DoLogin.DoLoginTest.Error_Login_Invalid&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.Register.RegisterExpenseUseCaseTest.Success&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.Register.RegisterExpenseUseCaseTest.Error_Title_Empty&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EBDDD958-E571-490B-AD43-ABD469B14DB4::net9.0::UseCases.Test.Expenses.GetById.GetExpenseByIdUseCaseTest.Error_Expense_Not_Found&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FFinCs_002EDomain_002FReports_002FPaymentType_002FResourceReportGenerationPaymentTypeMessages/@EntryIndexedValue">False</s:Boolean>
