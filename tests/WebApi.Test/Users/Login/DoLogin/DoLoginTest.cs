@@ -18,9 +18,9 @@ public class DoLoginTest : FinCsClassFixture
 
     public DoLoginTest(CustomWebApplicationFactory webAppFactory) : base(webAppFactory)
     {
-        _email = webAppFactory.GetEmail();
-        _name = webAppFactory.GetName();
-        _password = webAppFactory.GetPassword();
+        _email = webAppFactory.User_Team_Member.GetEmail();
+        _name = webAppFactory.User_Team_Member.GetName();
+        _password = webAppFactory.User_Team_Member.GetPassword();
     }
 
     [Fact]

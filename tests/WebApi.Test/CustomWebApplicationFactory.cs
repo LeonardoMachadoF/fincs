@@ -1,5 +1,4 @@
 using CommonTestUtilities.Entities;
-using FinCs.Domain.Entities;
 using FinCs.Domain.Security.Cryptography;
 using FinCs.Domain.Security.Tokens;
 using FinCs.Infrastructure.DataAccess;
@@ -7,38 +6,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WebApi.Test.Resources;
 
 namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private string _password;
-    private string _token;
-    private User _user;
-    private Expense _expense;
-
-    public string GetEmail()
-    {
-        return _user.Email;
-    }
-
-    public string GetName()
-    {
-        return _user.Name;
-    }
-
-    public string GetPassword()
-    {
-        return _password;
-    }
-
-    public string GetToken()
-    {
-        return _token;
-    }public long GetExpenseId()
-    {
-        return _expense.Id;
-    }
+    public UserIdentityManager User_Team_Member { get; private set; }
+    public UserIdentityManager User_Admin { get; private set; }
+    public ExpenseIdentityManager Expense { get; private set; }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -65,26 +41,30 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     var passwordEncripter = scope
                         .ServiceProvider
                         .GetRequiredService<IPasswordEncripter>();
+                    var accessTokenGenerator = scope
+                        .ServiceProvider
+                        .GetRequiredService<IAccessTokenGenerator>();
 
-                    var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
 
-                    StartDatabase(dbContext, passwordEncripter);
-
-                    _token = tokenGenerator.Generate(_user);
+                    StartDatabase(dbContext, passwordEncripter, accessTokenGenerator);
                 }
             );
     }
 
-    private void StartDatabase(FinCsDbContext dbContext, IPasswordEncripter encripter)
+    private void StartDatabase(FinCsDbContext dbContext, IPasswordEncripter encripter,
+        IAccessTokenGenerator accessTokenGenerator)
     {
-        _user = UserBuilder.Build();
-        _password = _user.Password;
-        _user.Password = encripter.Encript(_user.Password);
-        dbContext.Users.Add(_user);
+        var user = UserBuilder.Build();
+        var password = user.Password;
+        user.Password = encripter.Encript(user.Password);
+        dbContext.Users.Add(user);
 
-        _expense = ExpenseBuilder.Build(_user);
-        dbContext.Expenses.Add(_expense);
+        var token = accessTokenGenerator.Generate(user);
+        User_Team_Member = new UserIdentityManager(user, password, token);
 
+        var expense = ExpenseBuilder.Build(user);
+        dbContext.Expenses.Add(expense);
+        Expense = new ExpenseIdentityManager(expense);
         dbContext.SaveChanges();
     }
 }

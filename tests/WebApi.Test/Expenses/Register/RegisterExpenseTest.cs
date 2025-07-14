@@ -15,7 +15,7 @@ public class RegisterExpenseTest : FinCsClassFixture
 
     public RegisterExpenseTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _token = factory.GetToken();
+        _token = factory.User_Team_Member.GetToken();
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class RegisterExpenseTest : FinCsClassFixture
     {
         var request = RequestRegisterExpenseJsonBuilder.BuildRequestRegisterExpenseJson();
 
-        var result = await DoPost(METHOD, request);
+        var result = await DoPost(METHOD, request, _token);
 
         result.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -41,7 +41,7 @@ public class RegisterExpenseTest : FinCsClassFixture
         var request = RequestRegisterExpenseJsonBuilder.BuildRequestRegisterExpenseJson();
         request.Title = string.Empty;
 
-        var result = await DoPost(METHOD, request, culture: culture);
+        var result = await DoPost(METHOD, request, culture: culture, token: _token);
 
         result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
