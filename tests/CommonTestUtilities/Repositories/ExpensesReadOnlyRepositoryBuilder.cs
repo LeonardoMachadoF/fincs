@@ -25,4 +25,10 @@ public class ExpensesReadOnlyRepositoryBuilder
             _repository.Setup(repository => repository.GetById(user, expense.Id)).ReturnsAsync(expense);
         return this;
     }
+
+    public ExpensesReadOnlyRepositoryBuilder GetByMonth(User user, List<Expense> expenses)
+    {
+        _repository.Setup(repository => repository.GetByMonth(user, It.IsAny<DateOnly>())).ReturnsAsync(expenses);
+        return this;
+    }
 }
