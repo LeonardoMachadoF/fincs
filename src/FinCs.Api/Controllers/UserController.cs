@@ -1,6 +1,8 @@
+using FinCs.Application.UseCases.Users.Profile;
 using FinCs.Application.UseCases.Users.Register;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -17,5 +19,14 @@ public class UserController : ControllerBase
         var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+    [Authorize]
+    public async Task<IActionResult> GetProfile([FromServices] IGetUserProfileUseCase useCase)
+    {
+        var response = await useCase.Execute();
+        return Ok(response);
     }
 }
