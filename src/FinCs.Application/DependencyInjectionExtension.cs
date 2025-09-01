@@ -10,6 +10,7 @@ using FinCs.Application.UseCases.Report.Excel;
 using FinCs.Application.UseCases.Users.Login;
 using FinCs.Application.UseCases.Users.Profile;
 using FinCs.Application.UseCases.Users.Register;
+using FinCs.Application.UseCases.Users.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinCs.Application;
@@ -39,5 +40,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
         services.AddScoped<IGenerateExpensesReportPdfUseCase, GenerateExpensesReportPdfUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
     }
 }

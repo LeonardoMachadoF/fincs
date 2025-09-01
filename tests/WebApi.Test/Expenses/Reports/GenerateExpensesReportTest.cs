@@ -6,7 +6,7 @@ namespace WebApi.Test.Expenses.Reports;
 
 public class GenerateExpensesReportTest : FinCsClassFixture
 {
-    private const string METHOD = "api/Report";
+    private const string METHOD = "api/report";
 
     private readonly string _adminToken;
     private readonly DateTime _expenseDate;
