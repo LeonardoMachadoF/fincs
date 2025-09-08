@@ -7,6 +7,7 @@ using FinCs.Application.UseCases.Expenses.Reports.Excel;
 using FinCs.Application.UseCases.Expenses.Reports.Pdf;
 using FinCs.Application.UseCases.Expenses.Update;
 using FinCs.Application.UseCases.Report.Excel;
+using FinCs.Application.UseCases.Users.ChangePassword;
 using FinCs.Application.UseCases.Users.Login;
 using FinCs.Application.UseCases.Users.Profile;
 using FinCs.Application.UseCases.Users.Register;
@@ -41,5 +42,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGenerateExpensesReportPdfUseCase, GenerateExpensesReportPdfUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
+        services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
     }
 }
