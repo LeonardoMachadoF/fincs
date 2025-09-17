@@ -31,4 +31,10 @@ internal class UserRepository(FinCsDbContext dbContext)
     {
         await dbContext.Users.AddAsync(user);
     }
+
+    public async Task Delete(User user)
+    {
+        var userToDelete = await dbContext.Users.FindAsync(user.Id);
+        dbContext.Users.Remove(userToDelete!);
+    }
 }
