@@ -9,19 +9,13 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.ChangePassword;
 
-public class ChangePasswordTest : FinCsClassFixture
+public class ChangePasswordTest(CustomWebApplicationFactory webApplicationFactory)
+    : FinCsClassFixture(webApplicationFactory)
 {
     private const string METHOD = "api/User/change-password";
-    private readonly string _email;
-    private readonly string _password;
-    private readonly string _token;
-
-    public ChangePasswordTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    {
-        _token = webApplicationFactory.User_Team_Member.GetToken();
-        _password = webApplicationFactory.User_Team_Member.GetPassword();
-        _email = webApplicationFactory.User_Team_Member.GetEmail();
-    }
+    private readonly string _email = webApplicationFactory.User_Team_Member.GetEmail();
+    private readonly string _password = webApplicationFactory.User_Team_Member.GetPassword();
+    private readonly string _token = webApplicationFactory.User_Team_Member.GetToken();
 
     [Fact]
     public async Task Success()

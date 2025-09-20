@@ -8,13 +8,9 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register;
 
-public class RegisterUserTest : FinCsClassFixture
+public class RegisterUserTest(CustomWebApplicationFactory webAppFactory) : FinCsClassFixture(webAppFactory)
 {
     private readonly string METHOD = "api/user";
-
-    public RegisterUserTest(CustomWebApplicationFactory webAppFactory) : base(webAppFactory)
-    {
-    }
 
     [Fact]
     public async Task Success()

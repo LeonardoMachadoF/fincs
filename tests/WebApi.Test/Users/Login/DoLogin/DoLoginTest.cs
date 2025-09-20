@@ -9,19 +9,12 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Login.DoLogin;
 
-public class DoLoginTest : FinCsClassFixture
+public class DoLoginTest(CustomWebApplicationFactory webAppFactory) : FinCsClassFixture(webAppFactory)
 {
-    private readonly string _email;
-    private readonly string _name;
-    private readonly string _password;
+    private readonly string _email = webAppFactory.User_Team_Member.GetEmail();
+    private readonly string _name = webAppFactory.User_Team_Member.GetName();
+    private readonly string _password = webAppFactory.User_Team_Member.GetPassword();
     private readonly string METHOD = "api/login";
-
-    public DoLoginTest(CustomWebApplicationFactory webAppFactory) : base(webAppFactory)
-    {
-        _email = webAppFactory.User_Team_Member.GetEmail();
-        _name = webAppFactory.User_Team_Member.GetName();
-        _password = webAppFactory.User_Team_Member.GetPassword();
-    }
 
     [Fact]
     public async Task Success()

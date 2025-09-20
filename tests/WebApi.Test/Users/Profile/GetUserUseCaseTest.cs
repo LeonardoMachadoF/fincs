@@ -4,20 +4,14 @@ using Shouldly;
 
 namespace WebApi.Test.Users.Profile;
 
-public class GetUserUseCaseTest : FinCsClassFixture
+public class GetUserUseCaseTest(CustomWebApplicationFactory webApplicationFactory)
+    : FinCsClassFixture(webApplicationFactory)
 {
     private const string METHOD = "api/user";
 
-    private readonly string _token;
-    private readonly string _userEmail;
-    private readonly string _userName;
-
-    public GetUserUseCaseTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    {
-        _token = webApplicationFactory.User_Team_Member.GetToken();
-        _userName = webApplicationFactory.User_Team_Member.GetName();
-        _userEmail = webApplicationFactory.User_Team_Member.GetEmail();
-    }
+    private readonly string _token = webApplicationFactory.User_Team_Member.GetToken();
+    private readonly string _userEmail = webApplicationFactory.User_Team_Member.GetEmail();
+    private readonly string _userName = webApplicationFactory.User_Team_Member.GetName();
 
     [Fact]
     public async Task Success()
