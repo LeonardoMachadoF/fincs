@@ -11,7 +11,9 @@ public class FinCsDbContext(DbContextOptions<FinCsDbContext> options) : DbContex
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Expense>().ToTable("expenses");
         modelBuilder.Entity<User>().ToTable("users");
+        modelBuilder.Entity<Tag>().ToTable("tags");
     }
 }
