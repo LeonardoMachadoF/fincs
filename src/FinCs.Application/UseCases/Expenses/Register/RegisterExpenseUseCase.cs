@@ -17,7 +17,7 @@ public class RegisterExpenseUseCase(
 )
     : IRegisterExpenseUseCase
 {
-    public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
+    public async Task<ResponseRegisterExpenseJson> Execute(RequestExpenseJson request)
     {
         Validate(request);
 
@@ -32,17 +32,15 @@ public class RegisterExpenseUseCase(
         return mapper.Map<ResponseRegisterExpenseJson>(expense);
     }
 
-    private void Validate(RequestRegisterExpenseJson request)
+    private void Validate(RequestExpenseJson request)
     {
-        var validator = new RegisterExpenseValidator();
-        var result = validator.Validate(request);
+        var validator = new ExpenseValidator();
 
+        var result = validator.Validate(request);
 
         if (result.IsValid == false)
         {
-            var errorMessages = result.Errors.Select(
-                error => error.ErrorMessage
-            ).ToList();
+            var errorMessages = result.Errors.Select(f => f.ErrorMessage).ToList();
 
             throw new ErrorOnValidationException(errorMessages);
         }

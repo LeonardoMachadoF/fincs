@@ -1,6 +1,7 @@
 using FinCs.Domain.Entities;
 using FinCs.Domain.Repositories.Expenses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace FinCs.Infrastructure.DataAccess.Repositories;
 
@@ -14,29 +15,8 @@ internal class ExpensesRepository(FinCsDbContext dbContext)
 
     async Task<Expense?> IExpensesReadOnlyRepository.GetById(User user, long id)
     {
-        return await dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
-    }
-
-    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user, long id)
-    {
-        return await dbContext.Expenses.FirstOrDefaultAsync(x => x.Id == id && x.Id == user.Id);
-    }
-
-    public void Update(Expense expense)
-    {
-        dbContext.Expenses.Update(expense);
-    }
-
-    public async Task Add(Expense expense)
-    {
-        await dbContext.Expenses.AddAsync(expense);
-    }
-
-    public async Task Delete(long id)
-    {
-        var result = await dbContext.Expenses.FirstAsync(x => x.Id == id);
-
-        dbContext.Expenses.Remove(result);
+        return await GetFullExpense().AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
     }
 
     public async Task<List<Expense>> GetByMonth(User user, DateOnly date)
@@ -60,5 +40,32 @@ internal class ExpensesRepository(FinCsDbContext dbContext)
             .OrderBy(expense => expense.Date)
             .ThenBy(expense => expense.Title)
             .ToListAsync();
+    }
+
+    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user, long id)
+    {
+        return await GetFullExpense().FirstOrDefaultAsync(x => x.Id == id && x.Id == user.Id);
+    }
+
+    public void Update(Expense expense)
+    {
+        dbContext.Expenses.Update(expense);
+    }
+
+    public async Task Add(Expense expense)
+    {
+        await dbContext.Expenses.AddAsync(expense);
+    }
+
+    public async Task Delete(long id)
+    {
+        var result = await dbContext.Expenses.FirstAsync(x => x.Id == id);
+
+        dbContext.Expenses.Remove(result);
+    }
+
+    private IIncludableQueryable<Expense, ICollection<Tag>> GetFullExpense()
+    {
+        return dbContext.Expenses.Include(expense => expense.Tags);
     }
 }

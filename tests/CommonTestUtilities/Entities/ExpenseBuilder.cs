@@ -1,6 +1,7 @@
 using Bogus;
 using FinCs.Domain.Entities;
 using FinCs.Domain.Enums;
+using Tag = FinCs.Domain.Entities.Tag;
 
 namespace CommonTestUtilities.Entities;
 
@@ -15,7 +16,15 @@ public class ExpenseBuilder
             .RuleFor(u => u.Date, f => f.Date.Past())
             .RuleFor(r => r.Amount, f => f.Random.Decimal(1, 1000))
             .RuleFor(r => r.UserId, _ => user.Id)
-            .RuleFor(r => r.PaymentType, f => f.PickRandom<PaymentType>());
+            .RuleFor(r => r.PaymentType, f => f.PickRandom<PaymentType>())
+            .RuleFor(r => r.Tags, f =>
+                f.Make(1, () => new Tag
+                {
+                    Id = 1,
+                    TagName = f.PickRandom<FinCs.Domain.Enums.Tag>(),
+                    ExpenseId = 1
+                }));
+
 
         return expense;
     }
