@@ -11,23 +11,6 @@ namespace FinCs.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_expenses_Users_UserId",
-                table: "expenses");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Users",
-                table: "Users");
-
-            migrationBuilder.RenameTable(
-                name: "Users",
-                newName: "users");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_users",
-                table: "users",
-                column: "Id");
-
             migrationBuilder.CreateTable(
                 name: "tags",
                 columns: table => new
@@ -53,46 +36,14 @@ namespace FinCs.Infrastructure.Migrations
                 name: "IX_tags_ExpenseId",
                 table: "tags",
                 column: "ExpenseId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_expenses_users_UserId",
-                table: "expenses",
-                column: "UserId",
-                principalTable: "users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_expenses_users_UserId",
-                table: "expenses");
 
             migrationBuilder.DropTable(
                 name: "tags");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_users",
-                table: "users");
-
-            migrationBuilder.RenameTable(
-                name: "users",
-                newName: "Users");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Users",
-                table: "Users",
-                column: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_expenses_Users_UserId",
-                table: "expenses",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
     }
 }

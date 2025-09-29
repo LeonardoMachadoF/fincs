@@ -45,4 +45,7 @@
     <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
         <value>Email ou senha inválidos</value>
     </data>
+    <data name="TAG_TYPE_NOT_SUPPORTED" xml:space="preserve">
+        <value>Tag não suportada</value>
+    </data>
 </root>

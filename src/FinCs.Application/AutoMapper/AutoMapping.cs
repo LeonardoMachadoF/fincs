@@ -2,6 +2,7 @@ using AutoMapper;
 using FinCs.Communication.Requests;
 using FinCs.Communication.Responses;
 using FinCs.Domain.Entities;
+using Tag = FinCs.Communication.Enums.Tag;
 
 namespace FinCs.Application.AutoMapper;
 
@@ -22,7 +23,21 @@ public class AutoMapping : Profile
                 opt
                     => opt.Ignore()
             );
-        CreateMap<RequestExpenseJson, Expense>();
+        CreateMap<RequestExpenseJson, Expense>()
+            .ForMember(
+                dest => dest.Tags,
+                config
+                    => config.MapFrom(source
+                        => source.Tags.Distinct())
+            );
+
+
+        CreateMap<Tag, Domain.Entities.Tag>()
+            .ForMember(dest
+                    => dest.TagName,
+                config =>
+                    config.MapFrom(source => source)
+            );
     }
 
     private void EntityToResponse()

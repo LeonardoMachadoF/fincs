@@ -162,4 +162,7 @@
     <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
         <value>New password is not equal to the actual password</value>
     </data>
+    <data name="TAG_TYPE_NOT_SUPPORTED" xml:space="preserve">
+        <value>Tag Type not supported</value>
+    </data>
 </root>
