@@ -30,6 +30,8 @@ public class GetExpenseByIdUseCaseTest
         result.Description.ShouldBe(expense.Description);
         result.Date.ShouldBe(expense.Date);
         result.Amount.ShouldBe(expense.Amount);
+        result.Tags.ShouldNotBeNull();
+        result.Tags.ShouldNotBeEmpty();
         result.PaymentType.ShouldBe((PaymentType)expense.PaymentType);
     }
 
